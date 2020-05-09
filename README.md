@@ -1,2 +1,1 @@
-# user-service
-User service
+# User Service

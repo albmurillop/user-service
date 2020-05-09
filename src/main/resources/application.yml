@@ -1,0 +1,14 @@
+spring:
+  dataSource:
+    address-service:
+      database: H2
+      driver-class-name: org.h2.Driver
+      hibernate:
+        ddl-auto: create
+      password: ''
+      show-sql: true
+      username: sa
+
+  http:
+    encoding:
+      charset: UTF-8
