@@ -1,6 +1,7 @@
 spring:
   dataSource:
     address-service:
+      url: jdbc:h2:~/test;MODE=PostgreSQL;
       database: H2
       driver-class-name: org.h2.Driver
       hibernate:

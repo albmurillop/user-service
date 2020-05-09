@@ -1,2 +1,2 @@
-INSERT INTO "USER"(CODE) VALUES(1);
-INSERT INTO "USER"(CODE) VALUES(2);
+INSERT INTO "USER"(CODE, NAME, FIRST_SURNAME, SECOND_SURNAME, EMAIL, PASSWORD, BIRTH_DATE, START_DATE) VALUES(1, 'Pedro', 'Picapiedra', null, 'pedro@picapiedra.es', 'sjkaflasfl9832', date '1970-01-01', now());
+INSERT INTO "USER"(CODE, NAME, FIRST_SURNAME, SECOND_SURNAME, EMAIL, PASSWORD, BIRTH_DATE, START_DATE, END_DATE) VALUES(2, 'Antonio', 'Marquez', 'Diego', 'antonio@md.es', 'fdsakjlnfas374892', date '1990-08-14', timestamp '2020-01-03', now());

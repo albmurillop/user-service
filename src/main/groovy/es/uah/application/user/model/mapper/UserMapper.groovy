@@ -23,7 +23,14 @@ class UserMapper {
         
         if (user) {
             userResponse = new UserResponse(
-                code: user.code
+                code: user.code,
+                name: user.name,
+                firstSurname: user.firstSurname,
+                secondSurname: user.secondSurname,
+                email: user.email,
+                birthDate: user.birthDate,
+                startDate: user.startDate,
+                endDate: user.endDate
             )
         }
 
