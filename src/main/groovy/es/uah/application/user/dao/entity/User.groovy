@@ -17,70 +17,70 @@ import groovy.transform.ToString
  * User entity definition.
  */
 @Entity
-@Table(name = 'USER')
+@Table(name = 'users')
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 class User {
 
     @Id
-    @GeneratedValue(generator = 'USER_SEQ', strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = 'USER_SEQ', sequenceName = 'USER_SEQ',
+    @GeneratedValue(generator = 'users_seq', strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = 'users_seq', sequenceName = 'users_seq',
     allocationSize = 1)
-    @Column(name = 'CODE', nullable = false)
+    @Column(name = 'code', nullable = false)
     @NotNull
     Long code
 
     /**
      * Name.
      */
-    @Column(name = 'NAME', nullable = false)
+    @Column(name = 'name', nullable = false)
     @NotNull
     String name
 
     /**
      * First surname.
      */
-    @Column(name = 'FIRST_SURNAME', nullable = false)
+    @Column(name = 'first_surname', nullable = false)
     @NotNull
     String firstSurname
 
     /**
      * Second surname.
      */
-    @Column(name = 'SECOND_SURNAME', nullable = true)
+    @Column(name = 'second_surname', nullable = true)
     String secondSurname
 
     /**
      * Email.
      */
-    @Column(name = 'EMAIL', nullable = false)
+    @Column(name = 'email', nullable = false)
     @NotNull
     String email
 
     /**
      * Encrypted password.
      */
-    @Column(name = 'PASSWORD', nullable = false)
+    @Column(name = 'password', nullable = false)
     @NotNull
     String password
 
     /**
      * Date of birth.
      */
-    @Column(name = 'BIRTH_DATE', nullable = false)
+    @Column(name = 'birth_date', nullable = false)
     @NotNull
     LocalDate birthDate
 
     /**
      * Registration date.
      */
-    @Column(name = 'REGISTRATION_DATE', nullable = false)
+    @Column(name = 'registration_date', nullable = false)
     @NotNull
     LocalDateTime registrationDate
 
     /**
      * Termination date.
      */
-    @Column(name = 'TERMINATION_DATE', nullable = true)
+    @Column(name = 'termination_date', nullable = true)
     LocalDateTime terminationDate
 }
