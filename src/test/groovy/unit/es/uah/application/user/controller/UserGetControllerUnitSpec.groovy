@@ -2,29 +2,29 @@ package unit.es.uah.application.user.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import es.uah.application.user.controller.UserController
+import es.uah.application.user.controller.UserGetController
 import es.uah.application.user.model.UserResponse
-import es.uah.application.user.service.UserService
+import es.uah.application.user.service.UserGetService
 import spock.lang.Specification
 import spock.lang.Subject
 
 /**
- * UserController unit test class.
+ * UserGetController unit test class.
  */
-class UserControllerUnitSpec extends Specification {
+class UserGetControllerUnitSpec extends Specification {
 
     @Subject
-    private UserController userController
+    private UserGetController userGetController
 
-    private UserService userService = Mock(UserService)
+    private UserGetService userGetService = Mock(UserGetService)
 
     def setup() {
-        userController = new UserController(
-            userService: userService
+        userGetController = new UserGetController(
+            userGetService: userGetService
         )
     }
 
-    def 'Get users'() {
+    def 'Get all users'() {
         given:
             List<UserResponse> usersResponse = [
                 new UserResponse(
@@ -33,25 +33,25 @@ class UserControllerUnitSpec extends Specification {
             ]
 
         and:
-            userService.getUsers() >> usersResponse
+            userGetService.getAll() >> usersResponse
 
         when:
-            ResponseEntity<?> result = userController.getUsers()
+            ResponseEntity<?> result = userGetController.getAll()
 
         then:
             result.statusCode == HttpStatus.OK
             result.body == usersResponse
     }
 
-    def 'Get users, but there\'s no data'() {
+    def 'Get all users, but there\'s no data'() {
         given:
             List<UserResponse> usersResponse = []
 
         and:
-            userService.getUsers() >> usersResponse
+            userGetService.getAll() >> usersResponse
 
         when:
-            ResponseEntity<?> result = userController.getUsers()
+            ResponseEntity<?> result = userGetController.getAll()
 
         then:
             result.statusCode == HttpStatus.OK

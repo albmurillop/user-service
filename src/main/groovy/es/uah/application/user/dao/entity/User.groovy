@@ -72,15 +72,15 @@ class User {
     LocalDate birthDate
 
     /**
-     * Start date.
+     * Registration date.
      */
-    @Column(name = 'START_DATE', nullable = false)
+    @Column(name = 'REGISTRATION_DATE', nullable = false)
     @NotNull
-    LocalDateTime startDate
+    LocalDateTime registrationDate
 
     /**
-     * End date.
+     * Termination date.
      */
-    @Column(name = 'END_DATE', nullable = true)
-    LocalDateTime endDate
+    @Column(name = 'TERMINATION_DATE', nullable = true)
+    LocalDateTime terminationDate
 }

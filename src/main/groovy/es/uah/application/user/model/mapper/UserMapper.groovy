@@ -2,6 +2,7 @@ package es.uah.application.user.model.mapper
 
 import org.springframework.stereotype.Component
 import es.uah.application.user.dao.entity.User
+import es.uah.application.user.model.UserRequest
 import es.uah.application.user.model.UserResponse
 
 /**
@@ -11,8 +12,7 @@ import es.uah.application.user.model.UserResponse
 class UserMapper {
 
     /**
-     * Method in charge of mapping a user object
-     * in userResponse.
+     * Method in charge of mapping an User in UserResponse.
      * 
      * @param user User
      * @return UserResponse
@@ -20,7 +20,7 @@ class UserMapper {
     UserResponse map(User user) {
 
         UserResponse userResponse
-        
+
         if (user) {
             userResponse = new UserResponse(
                 code: user.code,
@@ -29,11 +29,37 @@ class UserMapper {
                 secondSurname: user.secondSurname,
                 email: user.email,
                 birthDate: user.birthDate,
-                startDate: user.startDate,
-                endDate: user.endDate
+                registrationDate: user.registrationDate,
+                terminationDate: user.terminationDate
             )
         }
 
         return userResponse
+    }
+
+    /**
+     * Method in charge of mapping an UserRequest in User.
+     *
+     * @param userRequest UserRequest
+     * @return User
+     */
+    User map(UserRequest userRequest) {
+
+        User user
+
+        if (userRequest) {
+            user = new User(
+                name: userRequest.name,
+                firstSurname: userRequest.firstSurname,
+                secondSurname: userRequest.secondSurname,
+                email: userRequest.email,
+                password: userRequest.password,
+                birthDate: userRequest.birthDate,
+                registrationDate: userRequest.registrationDate,
+                terminationDate: userRequest.terminationDate
+            )
+        }
+
+        return user
     }
 }

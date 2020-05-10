@@ -9,11 +9,11 @@ import es.uah.application.user.model.mapper.UserMapper
 import groovy.util.logging.Slf4j
 
 /**
- * Service for users.
+ * Service to get users.
  */
 @Service
 @Slf4j
-class UserService {
+class UserGetService {
 
     @Autowired
     private UserDAO userDAO
@@ -22,13 +22,13 @@ class UserService {
     private UserMapper userMapper
 
     /**
-     * Method of returning existing users.
+     * Method that returns all users
      * 
      * @return List with users
      */
-    List<UserResponse> getUsers() {
+    List<UserResponse> getAll() {
 
-        List<User> users = userDAO.getUsers()
+        List<User> users = userDAO.getAll()
         List<UserResponse> usersResponse = []
 
         users.each { user ->

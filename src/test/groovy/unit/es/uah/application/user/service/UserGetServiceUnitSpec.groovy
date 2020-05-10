@@ -4,21 +4,24 @@ import es.uah.application.user.dao.UserDAO
 import es.uah.application.user.dao.entity.User
 import es.uah.application.user.model.UserResponse
 import es.uah.application.user.model.mapper.UserMapper
-import es.uah.application.user.service.UserService
+import es.uah.application.user.service.UserGetService
 import spock.lang.Specification
 import spock.lang.Subject
 
-class UserServiceUnitSpec extends Specification{
+/**
+ * UserGetService unit test class.
+ */
+class UserGetServiceUnitSpec extends Specification{
 
     @Subject
-    private UserService userService
+    private UserGetService userGetService
 
     private UserDAO userDAO = Mock(UserDAO)
 
     private UserMapper userMapper = Mock(UserMapper)
 
     def setup() {
-        userService = new UserService(
+        userGetService = new UserGetService(
             userDAO: userDAO,
             userMapper: userMapper
         )
@@ -37,11 +40,11 @@ class UserServiceUnitSpec extends Specification{
             )
 
         and:
-            userDAO.getUsers() >> users
+            userDAO.getAll() >> users
             userMapper.map(_ as User) >> userResponse
 
         when:
-            List<UserResponse> result = userService.getUsers()
+            List<UserResponse> result = userGetService.getAll()
 
         then:
             result.size() == users.size()
@@ -51,14 +54,14 @@ class UserServiceUnitSpec extends Specification{
     def 'Get users, but there\'s no data'() {
         given:
             List<User> users = []
-            UserResponse userResponse = new UserResponse()
+            UserResponse userResponse = null
 
         and:
-            userDAO.getUsers() >> users
+            userDAO.getAll() >> users
             userMapper.map(_ as User) >> userResponse
 
         when:
-            List<UserResponse> result = userService.getUsers()
+            List<UserResponse> result = userGetService.getAll()
 
         then:
             !result

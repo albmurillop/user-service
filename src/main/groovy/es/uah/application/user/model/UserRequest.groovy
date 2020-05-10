@@ -1,21 +1,16 @@
-package es.uah.application.user.model;
+package es.uah.application.user.model
 
 import java.time.LocalDate
 import java.time.LocalDateTime
-import groovy.transform.EqualsAndHashCode;
-import groovy.transform.ToString;
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
 
 /**
- * Class containing the user response data.
+ * Class containing the user request data.
  */
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
-class UserResponse {
-
-    /**
-     * Code.
-     */
-    Long code
+class UserRequest {
 
     /**
      * Name.
@@ -38,6 +33,11 @@ class UserResponse {
     String email
 
     /**
+     * Encrypted password.
+     */
+    String password
+
+    /**
      * Date of birth.
      */
     LocalDate birthDate
@@ -48,7 +48,7 @@ class UserResponse {
     LocalDateTime registrationDate
 
     /**
-     * Terminate date.
+     * Termination date.
      */
     LocalDateTime terminationDate
 }
