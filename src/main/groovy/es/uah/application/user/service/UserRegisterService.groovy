@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import es.uah.application.user.dao.UserDAO
 import es.uah.application.user.dao.entity.User
 import es.uah.application.user.model.UserRequest
@@ -34,6 +35,7 @@ class UserRegisterService {
      * @param userRequest Object with the data of the user to be registered
      * @return UserResponse
      */
+    @Transactional
     UserResponse register(UserRequest userRequest) {
 
         if (!userRequest)

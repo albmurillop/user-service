@@ -2,6 +2,7 @@ package es.uah.application.user.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import es.uah.application.user.dao.UserDAO
 import es.uah.application.user.dao.entity.User
 import es.uah.application.user.model.UserResponse
@@ -26,6 +27,7 @@ class UserGetService {
      * 
      * @return List with users
      */
+    @Transactional(readOnly = true)
     List<UserResponse> getAll() {
 
         List<User> users = userDAO.getAll()
