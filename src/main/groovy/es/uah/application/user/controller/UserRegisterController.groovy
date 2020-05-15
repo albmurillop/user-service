@@ -1,5 +1,6 @@
 package es.uah.application.user.controller
 
+import org.dozer.DozerBeanMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -9,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
-import es.uah.application.user.model.UserRequest
-import es.uah.application.user.model.UserResponse
+import es.uah.application.user.model.User
+import es.uah.application.user.model.dto.UserRequest
+import es.uah.application.user.model.dto.UserResponse
 import es.uah.application.user.service.UserRegisterService
 import groovy.util.logging.Slf4j
 import io.swagger.annotations.Api
@@ -31,16 +33,19 @@ class UserRegisterController {
     @Autowired
     private UserRegisterService userRegisterService
 
+    @Autowired
+    private DozerBeanMapper mapper
+
     /**
      * Method of registering an user.
      *
      * @param userRequest Object with the data of the new user
      */
     @ApiOperation(
-    notes = 'Method of registering an user.',
-    nickname = 'createUser',
-    produces = MediaType.APPLICATION_JSON_VALUE,
-    value = 'createUser'
+        notes = 'Method of registering an user.',
+        nickname = 'createUser',
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        value = 'createUser'
     )
     @ApiResponses(value = [
         @ApiResponse(code = 201, message = 'Created'),
@@ -48,9 +53,9 @@ class UserRegisterController {
         @ApiResponse(code = 500, message = 'Failure')
     ])
     @RequestMapping(
-    method = RequestMethod.POST,
-    produces = MediaType.APPLICATION_JSON_VALUE,
-    value = '/'
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        value = '/'
     )
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<?> register(
@@ -59,10 +64,12 @@ class UserRegisterController {
 
         log.info "Register user: ${userRequest}"
 
-        UserResponse registeredUser = userRegisterService.register(userRequest)
+        User userToRegister = mapper.map(userRequest, User)
+        User registeredUser = userRegisterService.register(userToRegister)
+        UserResponse registeredUserResponse = mapper.map(registeredUser, UserResponse)
 
-        log.info "Registered user: ${registeredUser}"
+        log.info "Registered user: ${registeredUserResponse}"
 
-        return new ResponseEntity(registeredUser, HttpStatus.CREATED)
+        return new ResponseEntity(registeredUserResponse, HttpStatus.CREATED)
     }
 }

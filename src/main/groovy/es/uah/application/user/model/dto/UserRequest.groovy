@@ -1,7 +1,5 @@
-package es.uah.application.user.model
+package es.uah.application.user.model.dto
 
-import java.time.LocalDate
-import java.time.LocalDateTime
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -40,15 +38,15 @@ class UserRequest {
     /**
      * Date of birth.
      */
-    LocalDate birthDate
+    Date birthDate
 
     /**
      * Registration date.
      */
-    LocalDateTime registrationDate
+    Date registrationDate
 
     /**
      * Termination date.
      */
-    LocalDateTime terminationDate
+    Date terminationDate
 }

@@ -1,7 +1,7 @@
 package es.uah.application.user.dao.entity
 
-import java.time.LocalDate
-import java.time.LocalDateTime
+import static javax.persistence.TemporalType.DATE
+import static javax.persistence.TemporalType.TIMESTAMP
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -9,6 +9,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.SequenceGenerator
 import javax.persistence.Table
+import javax.persistence.Temporal
 import javax.validation.constraints.NotNull
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -20,8 +21,11 @@ import groovy.transform.ToString
 @Table(name = 'users')
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
-class User {
+class UserEntity {
 
+    /**
+     * Code.
+     */
     @Id
     @GeneratedValue(generator = 'users_seq', strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = 'users_seq', sequenceName = 'users_seq',
@@ -68,19 +72,22 @@ class User {
      * Date of birth.
      */
     @Column(name = 'birth_date', nullable = false)
+    @Temporal(value = DATE)
     @NotNull
-    LocalDate birthDate
+    Date birthDate
 
     /**
      * Registration date.
      */
     @Column(name = 'registration_date', nullable = false)
+    @Temporal(value = TIMESTAMP)
     @NotNull
-    LocalDateTime registrationDate
+    Date registrationDate
 
     /**
      * Termination date.
      */
     @Column(name = 'termination_date', nullable = true)
-    LocalDateTime terminationDate
+    @Temporal(value = TIMESTAMP)
+    Date terminationDate
 }

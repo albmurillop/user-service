@@ -1,7 +1,5 @@
-package es.uah.application.user.model;
+package es.uah.application.user.model.dto;
 
-import java.time.LocalDate
-import java.time.LocalDateTime
 import groovy.transform.EqualsAndHashCode;
 import groovy.transform.ToString;
 
@@ -11,11 +9,6 @@ import groovy.transform.ToString;
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 class UserResponse {
-
-    /**
-     * Code.
-     */
-    Long code
 
     /**
      * Name.
@@ -40,15 +33,15 @@ class UserResponse {
     /**
      * Date of birth.
      */
-    LocalDate birthDate
+    Date birthDate
 
     /**
      * Registration date.
      */
-    LocalDateTime registrationDate
+    Date registrationDate
 
     /**
      * Terminate date.
      */
-    LocalDateTime terminationDate
+    Date terminationDate
 }
