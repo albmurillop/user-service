@@ -37,7 +37,7 @@ class UserGetController {
         notes = 'Method that returns all users.',
         nickname = 'getAll',
         produces = MediaType.APPLICATION_JSON_VALUE,
-        response = String,
+        response = UserResponse,
         value = 'getAll'
     )
     @ApiResponses(value = [

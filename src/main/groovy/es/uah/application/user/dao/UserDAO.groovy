@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import es.uah.application.user.dao.entity.UserEntity
 import es.uah.application.user.dao.repository.UserRepository
+import es.uah.application.user.handler.ExceptionHandler
 import es.uah.application.user.model.User
 import es.uah.core.exception.IllegalArgumentException
 import groovy.util.logging.Slf4j
@@ -44,7 +45,7 @@ class UserDAO {
      */
     User save(User user) {
         if (!user)
-            throw new IllegalArgumentException('The user parameter is null')
+            ExceptionHandler.manage(new IllegalArgumentException('The user parameter is null'))
 
         UserEntity userEntity = mapper.map(user, UserEntity)
         User savedUser = mapper.map(userRepository.save(userEntity), User)
