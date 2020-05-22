@@ -47,6 +47,5 @@ class UserRegisterControllerUnitSpec extends Specification {
 
         then:
             result.statusCode == HttpStatus.CREATED
-            result.body == registeredUserResponse
     }
 }

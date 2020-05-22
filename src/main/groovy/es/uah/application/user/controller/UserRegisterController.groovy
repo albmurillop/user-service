@@ -45,11 +45,10 @@ class UserRegisterController {
         notes = 'Method of registering an user.',
         nickname = 'createUser',
         produces = MediaType.APPLICATION_JSON_VALUE,
-        response = UserResponse,
         value = 'createUser'
     )
     @ApiResponses(value = [
-        @ApiResponse(code = 201, message = 'Created', response = UserResponse),
+        @ApiResponse(code = 201, message = 'Created'),
         @ApiResponse(code = 400, message = 'Bad Request'),
         @ApiResponse(code = 500, message = 'Failure')
     ])
@@ -71,6 +70,6 @@ class UserRegisterController {
 
         log.info "Registered user: ${registeredUserResponse}"
 
-        return new ResponseEntity(registeredUserResponse, HttpStatus.CREATED)
+        return new ResponseEntity(HttpStatus.CREATED)
     }
 }
