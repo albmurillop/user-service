@@ -22,9 +22,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="340" y="220"/>
+	<position x="140" y="140"/>
 	<column name="code" not-null="true" sequence="public.users_seq">
 		<type name="bigint" length="0"/>
+	</column>
+	<column name="username" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="password" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="enabled" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="attempt" not-null="true">
+		<type name="integer" length="0"/>
 	</column>
 	<column name="name" not-null="true">
 		<type name="varchar" length="0"/>
@@ -38,9 +50,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="email" not-null="true">
 		<type name="varchar" length="0"/>
 	</column>
-	<column name="password" not-null="true">
-		<type name="varchar" length="0"/>
-	</column>
 	<column name="birth_date" not-null="true">
 		<type name="date" length="0"/>
 	</column>
@@ -50,9 +59,49 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="termination_date">
 		<type name="timestamp" length="0"/>
 	</column>
-	<constraint name="users_pk" type="pk-constr" table="public.users">
+	<column name="role_code" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="pk_users" type="pk-constr" table="public.users">
 		<columns names="code" ref-type="src-columns"/>
 	</constraint>
 </table>
+
+<sequence name="roles_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="roles">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="500" y="220"/>
+	<column name="code" not-null="true" sequence="public.roles_seq">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="pk_roles" type="pk-constr" table="public.roles">
+		<columns names="code" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="unique_roles_name" type="uq-constr" table="public.roles">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fk_users_roles" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.roles" table="public.users">
+	<columns names="role_code" ref-type="src-columns"/>
+	<columns names="code" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_users_roles" type="relfk"
+	 src-table="public.users"
+	 dst-table="public.roles" reference-fk="fk_users_roles"
+	 src-required="false" dst-required="false"/>
 
 </dbmodel>

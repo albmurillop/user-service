@@ -1,16 +1,17 @@
 package es.uah.application.user.dao.entity
 
-import static javax.persistence.TemporalType.DATE
-import static javax.persistence.TemporalType.TIMESTAMP
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 import javax.persistence.Temporal
-import javax.validation.constraints.NotNull
+import javax.persistence.TemporalType
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
@@ -29,23 +30,50 @@ class UserEntity {
     @Id
     @GeneratedValue(generator = 'users_seq', strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = 'users_seq', sequenceName = 'users_seq',
-    allocationSize = 1)
+        allocationSize = 1)
     @Column(name = 'code', nullable = false)
-    @NotNull
     Long code
+
+    /**
+     * Username.
+     */
+    @Column(name = 'username', nullable = false)
+    String username
+
+    /**
+     * Encrypted password.
+     */
+    @Column(name = 'password', nullable = false)
+    String password
+
+    /**
+     * Enabled.
+     */
+    @Column(name = 'enabled', nullable = false)
+    Boolean enabled
+
+    /**
+     * Attempt.
+     */
+    @Column(name = 'attempt', nullable = false)
+    Integer attempt
+
+    /**
+     * Email.
+     */
+    @Column(name = 'email', nullable = false)
+    String email
 
     /**
      * Name.
      */
     @Column(name = 'name', nullable = false)
-    @NotNull
     String name
 
     /**
      * First surname.
      */
     @Column(name = 'first_surname', nullable = false)
-    @NotNull
     String firstSurname
 
     /**
@@ -55,39 +83,31 @@ class UserEntity {
     String secondSurname
 
     /**
-     * Email.
-     */
-    @Column(name = 'email', nullable = false)
-    @NotNull
-    String email
-
-    /**
-     * Encrypted password.
-     */
-    @Column(name = 'password', nullable = false)
-    @NotNull
-    String password
-
-    /**
      * Date of birth.
      */
     @Column(name = 'birth_date', nullable = false)
-    @Temporal(value = DATE)
-    @NotNull
+    @Temporal(value = TemporalType.DATE)
     Date birthDate
 
     /**
      * Registration date.
      */
     @Column(name = 'registration_date', nullable = false)
-    @Temporal(value = TIMESTAMP)
-    @NotNull
+    @Temporal(value = TemporalType.TIMESTAMP)
     Date registrationDate
 
     /**
      * Termination date.
      */
     @Column(name = 'termination_date', nullable = true)
-    @Temporal(value = TIMESTAMP)
+    @Temporal(value = TemporalType.TIMESTAMP)
     Date terminationDate
+
+    /**
+     * Role.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = 'role_code', referencedColumnName = 'code', nullable = false,
+        insertable = true, updatable = false)
+    RoleEntity role
 }

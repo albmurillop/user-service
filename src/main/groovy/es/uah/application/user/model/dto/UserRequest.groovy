@@ -11,9 +11,24 @@ import groovy.transform.ToString
 class UserRequest {
 
     /**
+     * Username.
+     */
+    String username
+
+    /**
+     * Password.
+     */
+    String password
+
+    /**
      * Name.
      */
     String name
+
+    /**
+     * Email.
+     */
+    String email
 
     /**
      * First surname.
@@ -24,16 +39,6 @@ class UserRequest {
      * Second surname.
      */
     String secondSurname
-
-    /**
-     * Email.
-     */
-    String email
-
-    /**
-     * Encrypted password.
-     */
-    String password
 
     /**
      * Date of birth.

@@ -1,2 +1,2 @@
-INSERT INTO users(code, name, first_surname, second_surname, email, password, birth_date, registration_date) VALUES(nextval('users_seq'), 'Pedro', 'Picapiedra', null, 'pedro@picapiedra.es', '$2a$10$29fNV0Dl/uVkqN0VoB/Xb.ahB49WS.9jQIlZSgO3vZpdc./PcpK8G', date '1970-01-01', now());
-INSERT INTO users(code, name, first_surname, second_surname, email, password, birth_date, registration_date, termination_date) VALUES(nextval('users_seq'), 'Antonio', 'Marquez', 'Diego', 'antonio@md.es', '$2a$10$29fNV0Dl/uVkqN0VoB/Xb.ahB49WS.9jQIlZSgO3vZpdc./PcpK8G', date '1990-08-14', timestamp '2020-01-03', now());
+INSERT INTO roles(code, name) VALUES (nextval('roles_seq'), 'ROLE_ADMIN');
+INSERT INTO roles(code, name) VALUES (nextval('roles_seq'), 'ROLE_USER');

@@ -9,11 +9,36 @@ import groovy.transform.ToString
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
 class User {
-    
+
     /**
      * Code.
      */
     Long code
+
+    /**
+     * Username.
+     */
+    String username
+
+    /**
+     * Encrypted password.
+     */
+    String password
+
+    /**
+     * Enabled.
+     */
+    Boolean enabled
+
+    /**
+     * Attempt.
+     */
+    Integer attempt
+
+    /**
+     * Email.
+     */
+    String email
 
     /**
      * Name.
@@ -31,16 +56,6 @@ class User {
     String secondSurname
 
     /**
-     * Email.
-     */
-    String email
-
-    /**
-     * Encrypted password.
-     */
-    String password
-
-    /**
      * Date of birth.
      */
     Date birthDate
@@ -54,4 +69,9 @@ class User {
      * Termination date.
      */
     Date terminationDate
+
+    /**
+     * Role.
+     */
+    Role role
 }

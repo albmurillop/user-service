@@ -11,6 +11,26 @@ import groovy.transform.ToString;
 class UserResponse {
 
     /**
+     * Username.
+     */
+    String username
+
+    /**
+     * Enabled.
+     */
+    Boolean enabled
+
+    /**
+     * Attempt.
+     */
+    Integer attempt
+
+    /**
+     * Email.
+     */
+    String email
+
+    /**
      * Name.
      */
     String name
@@ -26,11 +46,6 @@ class UserResponse {
     String secondSurname
 
     /**
-     * Email.
-     */
-    String email
-
-    /**
      * Date of birth.
      */
     Date birthDate
@@ -44,4 +59,9 @@ class UserResponse {
      * Terminate date.
      */
     Date terminationDate
+
+    /**
+     * Role.
+     */
+    RoleResponse role
 }

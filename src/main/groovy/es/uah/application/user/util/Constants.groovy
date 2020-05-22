@@ -14,4 +14,19 @@ class Constants {
      * Handling the exception.
      */
     public static final String MANAGE_EXCEPTION = 'Handling the exception'
+
+    /**
+     * Role user.
+     */
+    public static final String ROLE_USER = 'ROLE_USER'
+
+    /**
+     * Zero.
+     */
+    public static final Integer ZERO = 0
+
+    /**
+     * Enabled.
+     */
+    public static final Boolean ENABLED = true
 }
