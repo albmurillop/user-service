@@ -43,6 +43,64 @@ class UserDAOUnitSpec extends Specification {
             users.size() * mapper.map(_ as UserEntity, User)
     }
     
+    def 'Get user by code'() {
+        given:
+            Long code = 1L
+            UserEntity userEntity = new UserEntity(code: code)
+            
+        and:
+            userRepository.findByCode(_ as Long) >> userEntity
+        
+        when:
+            User result = userDAO.getByCode(code)
+
+        then:
+            1 * mapper.map(_ as UserEntity, User)
+    }
+    
+    def 'Get user by code, but code is null'() {
+        given:
+            Long code = null
+            
+        when:
+            User result = userDAO.getByCode(code)
+
+        then:
+            !result
+            0 * userRepository.findByCode(_ as Long)
+            0 * mapper.map(_ as UserEntity, User)
+            thrown(IllegalArgumentException)
+    }
+    
+    def 'Get user by username'() {
+        given:
+            String username = 'username'
+            UserEntity userEntity = new UserEntity(username: username)
+            
+        and:
+            userRepository.findByUsername(_ as String) >> userEntity
+        
+        when:
+            User result = userDAO.getByUsername(username)
+
+        then:
+            1 * mapper.map(_ as UserEntity, User)
+    }
+    
+    def 'Get user by username, but username is null'() {
+        given:
+            String username = null
+            
+        when:
+            User result = userDAO.getByUsername(username)
+
+        then:
+            !result
+            0 * userRepository.findByUsername(_ as String)
+            0 * mapper.map(_ as UserEntity, User)
+            thrown(IllegalArgumentException)
+    }
+    
     def 'Save user'() {
         given:
             User user = new User(name: 'name')

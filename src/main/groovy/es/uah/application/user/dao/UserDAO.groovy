@@ -38,6 +38,42 @@ class UserDAO {
     }
 
     /**
+     * Method to get an user by code.
+     * 
+     * @param code Code of user
+     * @return User
+     */
+    User getByCode(Long code) {
+        if (!code)
+            ExceptionHandler.manage(new IllegalArgumentException('The code is null'))
+
+        User user
+        UserEntity userEntityDB = userRepository.findByCode(code)
+        if (userEntityDB)
+            user = mapper.map(userEntityDB, User)
+
+        return user
+    }
+    
+    /**
+     * Method to get an user by username.
+     *
+     * @param username Username
+     * @return User
+     */
+    User getByUsername(String username) {
+        if (!username)
+            ExceptionHandler.manage(new IllegalArgumentException('The username is null'))
+
+        User user
+        UserEntity userEntityDB = userRepository.findByUsername(username)
+        if (userEntityDB)
+            user = mapper.map(userEntityDB, User)
+
+        return user
+    }
+
+    /**
      * Method of saving an user
      * 
      * @param user User

@@ -9,4 +9,20 @@ import es.uah.application.user.dao.entity.UserEntity
  */
 @Repository
 interface UserRepository extends JpaRepository<UserEntity, Long> {
+
+    /**
+     * Find an user by code.
+     *
+     * @param code Code of user
+     * @return User
+     */
+    UserEntity findByCode(Long code)
+
+    /**
+     * Find an user by username.
+     *
+     * @param username Username
+     * @return User
+     */
+    UserEntity findByUsername(String username)
 }
