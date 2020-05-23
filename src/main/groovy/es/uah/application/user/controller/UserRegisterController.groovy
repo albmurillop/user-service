@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponses
  */
 @Api(value = 'UserRegisterController', description = 'Api for user registration')
 @RestController
-@RequestMapping("/")
+@RequestMapping("/users")
 @Slf4j
 class UserRegisterController {
 
@@ -55,7 +55,7 @@ class UserRegisterController {
     @RequestMapping(
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE,
-        value = '/'
+        value = ''
     )
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<?> register(
