@@ -29,4 +29,14 @@ class Constants {
      * Enabled.
      */
     public static final Boolean ENABLED = true
+
+    /**
+     * Name of notification service.
+     */
+    public static final String NOTIFICATION_SERVICE = 'notification-service'
+
+    /**
+     * Path Post of notification-service.
+     */
+    public static final String NOTIFICATION_SERVICE_POST = '/notifications/user-register'
 }

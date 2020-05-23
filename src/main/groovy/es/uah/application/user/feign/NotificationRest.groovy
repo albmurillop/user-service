@@ -1,5 +1,7 @@
 package es.uah.application.user.feign
 
+import static es.uah.application.user.util.Constants.NOTIFICATION_SERVICE
+import static es.uah.application.user.util.Constants.NOTIFICATION_SERVICE_POST
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -9,7 +11,7 @@ import es.uah.application.user.model.User
 /**
  * Notification REST with Feign.
  */
-@FeignClient(name = 'notification-service')
+@FeignClient(name = NOTIFICATION_SERVICE)
 interface NotificationRest {
 
     /**
@@ -18,6 +20,6 @@ interface NotificationRest {
      * @param user Object with data of user
      * @return Response
      */
-    @PostMapping
+    @PostMapping(value = NOTIFICATION_SERVICE_POST)
     public ResponseEntity<?> notifyUserRegistration(@RequestBody User user)
 }
