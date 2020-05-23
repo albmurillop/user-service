@@ -4,11 +4,11 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 /**
- * Class containing the user request data.
+ * Class containing the user register request data.
  */
 @EqualsAndHashCode
 @ToString(includeNames = true, includeFields = true)
-class UserRequest {
+class UserRegisterRequest {
 
     /**
      * Username.

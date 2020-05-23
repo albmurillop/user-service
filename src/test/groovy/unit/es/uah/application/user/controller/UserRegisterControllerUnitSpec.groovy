@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import es.uah.application.user.controller.UserRegisterController
 import es.uah.application.user.model.User
-import es.uah.application.user.model.dto.UserRequest
+import es.uah.application.user.model.dto.UserRegisterRequest
 import es.uah.application.user.model.dto.UserResponse
 import es.uah.application.user.service.UserRegisterService
 import spock.lang.Specification
@@ -32,18 +32,18 @@ class UserRegisterControllerUnitSpec extends Specification {
 
     def 'Register user'() {
         given:
-            UserRequest userRequest = new UserRequest(name: 'name')
+            UserRegisterRequest userRegisterRequest = new UserRegisterRequest(name: 'name')
             User userToRegister = new User(name: 'name')
             User registeredUser = new User(code: 1L, name: 'name')
             UserResponse registeredUserResponse = new UserResponse(name: 'name')
 
         and:
-            mapper.map(_ as UserRequest, User) >> userToRegister
+            mapper.map(_ as UserRegisterRequest, User) >> userToRegister
             userRegisterService.register(_ as User) >> registeredUser
             mapper.map(_ as User, UserResponse) >> registeredUserResponse
 
         when:
-            ResponseEntity<?> result = userRegisterController.register(userRequest)
+            ResponseEntity<?> result = userRegisterController.register(userRegisterRequest)
 
         then:
             result.statusCode == HttpStatus.CREATED

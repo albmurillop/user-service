@@ -3,6 +3,7 @@ package unit.es.uah.application.user.service
 import es.uah.application.user.dao.UserDAO
 import es.uah.application.user.model.User
 import es.uah.application.user.service.UserGetService
+import es.uah.core.exception.RequestNotValidException
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -49,5 +50,33 @@ class UserGetServiceUnitSpec extends Specification{
 
         then:
             !result
+    }
+    
+    def 'Get user by code'() {
+        given:
+            Long code = 1L
+            User user = new User(code: code)
+
+        and:
+            userDAO.getByCode(_ as Long) >> user
+
+        when:
+            User result = userGetService.getByCode(code)
+
+        then:
+            result.code == user.code
+    }
+    
+    def 'Search by code, but code is null'() {
+        given:
+            Long code = null
+
+        when:
+            User result = userGetService.getByCode(code)
+
+        then:
+            !result
+            0 * userDAO.getByCode(_ as Long)
+            thrown(RequestNotValidException)
     }
 }

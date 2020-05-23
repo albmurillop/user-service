@@ -5,15 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import es.uah.application.user.model.User
-import es.uah.application.user.model.dto.UserRegisterRequest
-import es.uah.application.user.model.dto.UserResponse
-import es.uah.application.user.service.UserRegisterService
+import es.uah.application.user.model.dto.UserPatchRequest
+import es.uah.application.user.service.UserModifyService
 import groovy.util.logging.Slf4j
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -22,25 +22,20 @@ import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 
 /**
- * User register controller implementation.
+ * User modify controller implementation.
  */
-@Api(value = 'UserRegisterController', description = 'Api for user registration')
+@Api(value = 'UserModifyController', description = 'Api to modify users')
 @RestController
-@RequestMapping("/")
+@RequestMapping("/users")
 @Slf4j
-class UserRegisterController {
+class UserModifyController {
 
     @Autowired
-    private UserRegisterService userRegisterService
+    private UserModifyService userModifyService
 
     @Autowired
     private DozerBeanMapper mapper
 
-    /**
-     * Method of registering an user.
-     *
-     * @param userRequest Object with the data of the new user
-     */
     @ApiOperation(
         notes = 'Method of registering an user.',
         nickname = 'createUser',
@@ -48,28 +43,31 @@ class UserRegisterController {
         value = 'createUser'
     )
     @ApiResponses(value = [
-        @ApiResponse(code = 201, message = 'Created'),
+        @ApiResponse(code = 200, message = 'Success'),
         @ApiResponse(code = 400, message = 'Bad Request'),
+        @ApiResponse(code = 401, message = 'Unauthorized'),
+        @ApiResponse(code = 403, message = 'Forbidden'),
+        @ApiResponse(code = 404, message = 'Not Found'),
         @ApiResponse(code = 500, message = 'Failure')
     ])
     @RequestMapping(
-        method = RequestMethod.POST,
+        method = RequestMethod.PATCH,
         produces = MediaType.APPLICATION_JSON_VALUE,
-        value = '/'
+        value = '/{code}'
     )
-    @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<?> register(
-            @ApiParam(value = 'User data to be saved', required = true)
-            @RequestBody UserRegisterRequest userRegisterRequest) {
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<?> patch(
+        @ApiParam(value = 'Code of user', required = true)
+        @PathVariable Long code,
+        @ApiParam(value = 'User data to be modified', required = true)
+        @RequestBody UserPatchRequest userPatchRequest) {
 
-        log.info "Register user: ${userRegisterRequest}"
+        log.info "Modify user ${code} with ${userPatchRequest}"
 
-        User userToRegister = mapper.map(userRegisterRequest, User)
-        User registeredUser = userRegisterService.register(userToRegister)
-        UserResponse registeredUserResponse = mapper.map(registeredUser, UserResponse)
+        User user = userModifyService.patch(code, userPatchRequest)
 
-        log.info "Registered user: ${registeredUserResponse}"
+        log.info "Modified user: ${user}"
 
-        return new ResponseEntity(HttpStatus.CREATED)
+        return new ResponseEntity(HttpStatus.OK)
     }
 }

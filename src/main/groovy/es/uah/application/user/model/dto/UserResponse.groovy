@@ -11,9 +11,19 @@ import groovy.transform.ToString;
 class UserResponse {
 
     /**
+     * Code.
+     */
+    Long code
+    
+    /**
      * Username.
      */
     String username
+    
+    /**
+     * Password.
+     */
+    String password
 
     /**
      * Enabled.

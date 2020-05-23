@@ -7,6 +7,7 @@ import es.uah.application.user.controller.UserSearchController
 import es.uah.application.user.model.User
 import es.uah.application.user.model.dto.UserResponse
 import es.uah.application.user.service.UserSearchService
+import es.uah.core.exception.EntityNotFoundException
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -29,24 +30,6 @@ class UserSearchControllerUnitSpec extends Specification {
         )
     }
 
-    def 'Search by code'() {
-        given:
-            Long code = 1L
-            User user = new User(code: code, name: 'name')
-            UserResponse userResponse = new UserResponse(name: 'name')
-            
-        and:
-            userSearchService.searchByCode(_ as Long) >> user
-            mapper.map(_ as User, UserResponse) >> userResponse
-
-        when:
-            ResponseEntity<?> result = userSearchController.searchByCode(code)
-
-        then:
-            result.statusCode == HttpStatus.OK
-            result.body == userResponse
-    }
-
     def 'Search by username'() {
         given:
             Long code = 1L
@@ -64,5 +47,22 @@ class UserSearchControllerUnitSpec extends Specification {
         then:
             result.statusCode == HttpStatus.OK
             result.body == userResponse
+    }
+    
+    def 'Search by username, but not found'() {
+        given:
+            String username = 'username'
+            User user = null
+            
+        and:
+            userSearchService.searchByUsername(_ as String) >> user
+
+        when:
+            ResponseEntity<?> result = userSearchController.searchByUsername(username)
+
+        then:
+            !result
+            0 * mapper.map(_ as User, UserResponse)
+            thrown(EntityNotFoundException)
     }
 }

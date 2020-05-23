@@ -7,6 +7,7 @@ import es.uah.application.user.controller.UserGetController
 import es.uah.application.user.model.User
 import es.uah.application.user.model.dto.UserResponse
 import es.uah.application.user.service.UserGetService
+import es.uah.core.exception.EntityNotFoundException
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -62,5 +63,40 @@ class UserGetControllerUnitSpec extends Specification {
             0 * mapper.map(_ as User, UserResponse)
             result.statusCode == HttpStatus.OK
             !result.body
+    }
+    
+    def 'Get by code'() {
+        given:
+            Long code = 1L
+            User user = new User(code: code, name: 'name')
+            UserResponse userResponse = new UserResponse(name: 'name')
+            
+        and:
+            userGetService.getByCode(_ as Long) >> user
+            mapper.map(_ as User, UserResponse) >> userResponse
+
+        when:
+            ResponseEntity<?> result = userGetController.getByCode(code)
+
+        then:
+            result.statusCode == HttpStatus.OK
+            result.body == userResponse
+    }
+    
+    def 'Get by code, but not found'() {
+        given:
+            Long code = 1L
+            User user = null
+            
+        and:
+            userGetService.getByCode(_ as Long) >> user
+
+        when:
+            ResponseEntity<?> result = userGetController.getByCode(code)
+
+        then:
+            !result
+            0 * mapper.map(_ as User, UserResponse)
+            thrown(EntityNotFoundException)
     }
 }
