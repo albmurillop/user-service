@@ -36,11 +36,18 @@ class UserModifyController {
     @Autowired
     private DozerBeanMapper mapper
 
+    /**
+     * Method of patching an user.
+     * 
+     * @param code Code of user
+     * @param userPatchRequest Object with the data to be changed
+     * @return ResponseEntity
+     */
     @ApiOperation(
-        notes = 'Method of registering an user.',
-        nickname = 'createUser',
+        notes = 'Method of patching an user.',
+        nickname = 'patch',
         produces = MediaType.APPLICATION_JSON_VALUE,
-        value = 'createUser'
+        value = 'patch'
     )
     @ApiResponses(value = [
         @ApiResponse(code = 200, message = 'Success'),

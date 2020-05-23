@@ -22,7 +22,7 @@ class UserModifyService {
     private UserDAO userDAO
 
     /**
-     * Method of patching a user.
+     * Method of patching an user.
      * 
      * @param code Code of user
      * @param userPatchRequest Object with the data to be changed
