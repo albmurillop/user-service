@@ -5,6 +5,6 @@ spring:
   cloud:
     config:
       enabled: true
-      uri: http://localhost:8888
+      uri: http://config-server:8888
       username: root
       password: u4hTFG
