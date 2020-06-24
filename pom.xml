@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>es.uah.application</groupId>
 	<artifactId>user-service</artifactId>
-	<version>1.0.0</version>
+	<version>RELEASE</version>
 	<name>user-service</name>
 	<description>User service</description>
 	<inceptionYear>2020</inceptionYear>
@@ -101,20 +101,20 @@
 			<artifactId>spring-cloud-config-client</artifactId>
 			<version>2.2.2.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>
 				spring-cloud-starter-netflix-eureka-client
 			</artifactId>
 		</dependency>
-		
+
 		<!-- Feign -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
@@ -134,30 +134,70 @@
 	</dependencyManagement>
 
 	<build>
+		<sourceDirectory>src/main/groovy</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.gmavenplus</groupId>
 				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.9.0</version>
+				<version>1.5</version>
 				<executions>
 					<execution>
 						<goals>
 							<goal>addSources</goal>
 							<goal>addTestSources</goal>
-							<goal>generateStubs</goal>
 							<goal>compile</goal>
-							<goal>generateTestStubs</goal>
-							<goal>compileTests</goal>
-							<goal>removeStubs</goal>
-							<goal>removeTestStubs</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<invokeDynamic>true</invokeDynamic>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*IntegrationTest.groovy</exclude>
+						<exclude>**/*IntegrationSpec.groovy</exclude>
+					</excludes>
+					<includes>
+						<include>**/*Test.groovy</include>
+						<include>**/*Spec.groovy</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*IntegrationTest.groovy</include>
+						<include>**/*IntegrationSpec.groovy</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
+			
 		</plugins>
 	</build>
 

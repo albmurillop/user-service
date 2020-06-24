@@ -48,7 +48,7 @@ class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title('User Service')
                 .description('User Service')
-                .version('0.0.1')
+                .version('1.0.0')
                 .build()
     }
 }
